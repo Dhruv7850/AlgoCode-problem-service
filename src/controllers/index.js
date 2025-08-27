@@ -1,3 +1,1 @@
-module.exports = {
-    ProblemController: require('./problem.controller').default
-}
+export const ProblemController = require('./problem.controller').default;
