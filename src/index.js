@@ -4,6 +4,7 @@ import apiRouter from './routes/index.js'; // Added .js extension
 import { PORT } from './config/server.config.js'; // Added .js extension
 import { BaseError } from './errors/Base.error.js'; // Added .js extension
 import errorHandler from './utils/errorHandlers.js'; // Added .js extension and changed import
+import connectToDB from './config/db.config.js';
 
 const app = express();
 
@@ -22,15 +23,9 @@ app.get("/ping", (req, res) => {
 // Error handling middleware should be last
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server has started on PORT: ${PORT}`);
 
-    // Note: Throwing an error here will crash your application on startup.
-    // This is generally used for testing the error handler, not for production.
-    // For example:
-    // try {
-    //   throw new BaseError('Startup Test Error', 500, "Something went wrong during startup test.");
-    // } catch(error) {
-    //   console.error(error.message);
-    // }
+    await connectToDB();
+    console.log("Successfully connected to DB");
 });
