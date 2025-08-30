@@ -33,4 +33,4 @@ export const problemSchema = new mongoose.Schema({
 })
 
 const Problem = mongoose.model('Problem', problemSchema);
-
+export default Problem;
