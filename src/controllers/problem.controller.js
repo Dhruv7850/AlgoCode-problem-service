@@ -2,6 +2,7 @@ import StatusCodes from 'http-status-codes';
 import { notImplemented } from '../errors/notImplemented.error.js';
 import { ProblemService } from '../services/problem.service.js';
 import ProblemRepository from '../repositories/problem.repositories.js'
+import NotFound from '../errors/NotFound.error.js';
 
 const problemService = new ProblemService(new ProblemRepository());
 function pingControllerCheck(req, res) {
@@ -25,21 +26,37 @@ async function addProblem(req, res, next) {
 }
 
 
-function getProblems(req, res, next) {
+async function getProblems(req, res, next) {
     try {
-        // Now we throw the error on purpose to test the errorHandler
-        throw new notImplemented('getProblems');
+        const response = await problemService.getAllProblems();
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: "Successfully fetched all the problems",
+            error: {},
+            data: response
+        })
+
     } catch (error) {
         next(error);
     }
 }
 
 
-function getProblem(req, res) {
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-        message: "Not Implemented"
-    });
+async function getProblem(req, res, next) {
+    try {
+        const problem = await problemService.getProblem(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: "Successfully fetched a problem",
+            error: {},
+            data: problem
+        })
+    }
+    catch (error) {
+        next(error);
+    }
 }
+
 
 function deleteProblem(req, res) {
     return res.status(StatusCodes.NOT_IMPLEMENTED).json({

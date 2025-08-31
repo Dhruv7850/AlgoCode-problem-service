@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './routes/index.js'; // Added .js extension
 import { PORT } from './config/server.config.js'; // Added .js extension
-import { BaseError } from './errors/Base.error.js'; // Added .js extension
 import errorHandler from './utils/errorHandlers.js'; // Added .js extension and changed import
 import connectToDB from './config/db.config.js';
 import Problem from './models/problem.model.js'
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
 
-app.use(express.json());
+
 // If any request comes and the route starts with /api, we map it to apiRouter
 app.use("/api", apiRouter);
 

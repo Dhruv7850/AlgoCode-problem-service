@@ -1,4 +1,4 @@
-import { BaseError } from '../errors/Base.error.js'; // Use import with curly braces for named export
+import BaseError from '../errors/Base.error.js'; // Use import with curly braces for named export
 import StatusCodes from 'http-status-codes';
 
 

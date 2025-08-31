@@ -11,19 +11,19 @@ export function sanitizeMarkdownContent(markdownContent) {
     }
     // 1. Convert markdown to HTML
     const convertedHtml = marked.parse(markdownContent);
-    console.log("converted html", convertedHtml);
+
     // 2. Sanitize HTML to remove dangerous tags like <script>
     const sanitizedHtml = sanitizeHtml(convertedHtml, {
         // Using the defaults is fine, this explicitly allows standard tags
 
 
-        allowedTags: sanitizeHtml.defaults.allowedTags
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
 
     });
-    console.log("sanitizedhtml", sanitizedHtml);
+
     // 3. Convert the sanitized HTML back to Markdown
     const sanitizedMarkdown = turndownService.turndown(sanitizedHtml);
-    console.log("sanitized markdown", sanitizedMarkdown);
+
     return sanitizedMarkdown;
 }
 

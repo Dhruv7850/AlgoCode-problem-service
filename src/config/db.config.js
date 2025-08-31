@@ -8,7 +8,7 @@ export default async function connectToDB() {
             await mongoose.connect(ATLAS_DB_URL);
         }
     }
-    catch {
+    catch (error) {
         console.log('Unable to connect with the Database');
         console.log(error);
     }
