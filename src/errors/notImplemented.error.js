@@ -1,6 +1,5 @@
-import { BaseError } from './Base.error.js';
-
-import { StatusCodes } from 'http-status-codes';
+import BaseError from './Base.error.js';
+import StatusCodes from 'http-status-codes';
 
 export class notImplemented extends BaseError {
     constructor(methodName) {

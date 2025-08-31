@@ -1,5 +1,5 @@
 // Corrected constructor
-export class BaseError extends Error {
+class BaseError extends Error {
 
 
 
@@ -14,3 +14,4 @@ export class BaseError extends Error {
         Error.captureStackTrace(this);
     }
 }
+export default BaseError;

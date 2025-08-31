@@ -1,4 +1,4 @@
-import { BaseError } from './Base.error.js';
+import BaseError from './Base.error.js';
 import StatusCodes from 'http-status-codes';
 
 export default class BadRequest extends BaseError {
