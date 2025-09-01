@@ -23,7 +23,7 @@ export const problemSchema = new mongoose.Schema({
             },
             output: {
                 type: String,
-                requried: true
+                required: true
             },
         }
     ],
