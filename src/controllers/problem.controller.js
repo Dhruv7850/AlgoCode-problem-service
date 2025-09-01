@@ -58,7 +58,7 @@ async function getProblem(req, res, next) {
 }
 
 
-async function deleteProblem(req, res) {
+async function deleteProblem(req, res, next) {
     try {
         const deletedproblem = await problemService.deleteProblem(req.params.id);
         return res.status(StatusCodes.OK).json({
@@ -68,10 +68,11 @@ async function deleteProblem(req, res) {
             data: deletedproblem
         })
     } catch (error) {
+        console.log('Is instance of NotFound here?', error instanceof NotFound);
         next(error);
     }
 }
-async function updateProblem(req, res) {
+async function updateProblem(req, res, next) {
     try {
         const updatedproblem = await problemService.updateProblem(req.params.id, req.body);
         return res.status(StatusCodes.ACCEPTED).json({

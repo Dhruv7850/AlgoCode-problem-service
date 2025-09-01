@@ -16,6 +16,16 @@ export default function errorHandler(err, req, res, next) {
         });
     }
 
+
+    if (err.name === 'CastError') {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            success: false,
+            message: 'Invalid ID provided',
+            error: `The resource ID '${err.value}' is not in a valid format.`,
+            data: {}
+        });
+    }
+
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: "Something went wrong",

@@ -1,1 +1,1 @@
-export const ProblemController = require('./problem.controller').default;
+export { default as ProblemController } from './problem.controller.js';

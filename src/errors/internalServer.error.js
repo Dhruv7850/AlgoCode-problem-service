@@ -3,8 +3,8 @@ import StatusCodes from 'http-status-code';
 
 class internalServer extends BaseError {
     constructor(details) {
-        super("internalServer", StatusCodes.internalServer, `Something went wrong!!`, details);
+        super("internalServer", StatusCodes.INTERNAL_SERVER_ERROR, `Something went wrong!!`, details);
     }
 }
 
-module.exports = internalServer;
+export default internalServer;

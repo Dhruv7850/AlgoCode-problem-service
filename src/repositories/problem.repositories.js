@@ -1,5 +1,7 @@
 import NotFound from '../errors/NotFound.error.js';
 import Problem from '../models/problem.model.js'
+import logger from '../config/logger.config.js';
+
 
 class ProblemRepository {
 
@@ -8,7 +10,7 @@ class ProblemRepository {
             const problem = await Problem.create({
                 title: problemData.title,
                 description: problemData.description,
-                testCases: (problemData.testCases) ? problemData.testCases : []
+                testCases: (problemData.testcase) ? problemData.testcase : []
             });
             return problem;
         }
@@ -33,6 +35,8 @@ class ProblemRepository {
             const problem = await Problem.findById(id);
             if (!problem) {
                 const notFoundError = new NotFound("problem", id);
+                console.log('--- 1. ERROR CREATED IN SERVICE ---');
+                console.log('Is instance of NotFound here?', notFoundError instanceof NotFound);
                 throw notFoundError;
 
             }
@@ -47,7 +51,9 @@ class ProblemRepository {
         try {
             const deletedproblem = await Problem.findByIdAndDelete(id);
             if (!deletedproblem) {
+
                 const notFoundError = new NotFound("problem", id);
+                logger.error(`Problem with id: ${id} not found in the db`)
                 throw notFoundError;
 
             }
