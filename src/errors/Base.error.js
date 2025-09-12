@@ -1,17 +1,15 @@
-// Corrected constructor
+//Create a base error class
+
+//NODEJS has its own Error Class (Interface), so we have extended it(Error MDN)
 class BaseError extends Error {
-
-
-
-    constructor(name, statusCode, message, details) { // <-- Use 'message'
-
-        console.log(`Creating error. statusCode is: ${statusCode}`);
-
-        super(message); // <-- Use 'message'
-        this.name = name;
-        this.statusCode = statusCode;
-        this.details = details;
-        Error.captureStackTrace(this);
-    }
+  constructor(name, statusCode, description, details) {
+    super(description); //constructor of error class
+    this.name = name;
+    this.statusCode = statusCode;
+    this.details = details;
+    // this.cause = cause
+    // Error.captureStackTrace(this); //It captures the location at which the error took place. It is taken from Nodejs error class
+  }
 }
-export default BaseError;
+
+module.exports = BaseError;

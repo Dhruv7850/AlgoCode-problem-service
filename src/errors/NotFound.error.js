@@ -1,13 +1,17 @@
-import BaseError from './Base.error.js';
-import StatusCodes from 'http-status-codes';
+//not found should have resource name not found and its value
 
-export default class NotFound extends BaseError {
-    constructor(resourceName, resourceValue) {
-        super("NotFound", StatusCodes.NOT_FOUND, `The requested resource: ${resourceName} with value ${resourceValue} not found`,
-            {
-                resourceName,
-                resourceValue
-            });
-    }
+const BaseError = require("./base.error");
+const { StatusCodes } = require("http-status-codes");
+
+class NotFound extends BaseError {
+  constructor(resourceName, resourceValue) {
+    super(
+      "NotFound",
+      StatusCodes.NOT_FOUND,
+      `The requested resource: ${resourceName} with value ${resourceValue} not found`,
+      { resourceName, resourceValue }
+    );
+  }
 }
 
+module.exports = NotFound;

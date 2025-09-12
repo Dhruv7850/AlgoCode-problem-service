@@ -1,10 +1,15 @@
-import BaseError from './Base.error.js';
-import StatusCodes from 'http-status-code';
+const BaseError = require("./base.error");
+const { StatusCodes } = require("http-status-codes");
 
-class internalServer extends BaseError {
-    constructor(details) {
-        super("internalServer", StatusCodes.INTERNAL_SERVER_ERROR, `Something went wrong!!`, details);
-    }
+class InternalServerError extends BaseError {
+  constructor(details) {
+    super(
+      "InternalServerError",
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "Something went wrong!!",
+      details
+    );
+  }
 }
 
-export default internalServer;
+module.exports = InternalServerError;
