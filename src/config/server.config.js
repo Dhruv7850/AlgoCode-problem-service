@@ -1,11 +1,10 @@
-import dotenv from 'dotenv';
-
+const dotenv = require('dotenv');
 dotenv.config();
 
-export const PORT = process.env.PORT || 3000;
-
-export const ATLAS_DB_URL = process.env.ATLAS_DB_URL;
-
-export const NODE_ENV = process.env.NODE_ENV || "development";
-
-export const LOG_DB_URL = process.env.LOG_DB_URL;
+module.exports = {
+  PORT: process.env.PORT || 3000,
+  PROD_DB_URL: process.env.PROD_DB_URL,
+  LOG_DB_URL: process.env.LOG_DB_URL,
+  NODE_ENV: process.env.NODE_ENV || "development",
+  JWT_SECRET: process.env.JWT_SECRET,
+};

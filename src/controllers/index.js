@@ -1,1 +1,3 @@
-export { default as ProblemController } from './problem.controller.js';
+module.exports = {
+  problemController: require("./problem.controller"),
+};

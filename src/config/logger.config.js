@@ -1,44 +1,73 @@
-import winston from 'winston'
-import { LOG_DB_URL } from './server.config.js';
-import MongoDB from 'winston-mongodb';
+const winston = require("winston");
+require("winston-mongodb");
+const { LOG_DB_URL } = require("./server.config");
+const { options } = require("joi");
 
 const allowedTransports = [];
-// The below transport configuration enables loggin on the console 
-allowedTransports.push(new winston.transports.Console({
+// const customColors = {
+//   error: "bold red",
+//   warn: "italic yellow",
+//   info: "blue",
+//   http: "magenta",
+//   debug: "green",
+// };
+
+allowedTransports.push(
+  new winston.transports.Console({
     format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.timestamp({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }),
-        // Second argument to the combine method, which defines what is exactly going to be printed in log
-        winston.format.printf((log) => `${log.timestamp} [${log.level}]: ${log.message}`)
-    )
-}));
-// The below transport configuration allows loggin on the Database
-allowedTransports.push(new winston.transports.MongoDB({
-    level: 'error',
-    db: LOG_DB_URL,
-    collection: 'logs',
-}))
+      //Colorize with custom colors
+      winston.format.colorize(),
 
-allowedTransports.push(new winston.transports.File({
-    filename: `app.log`
-}))
-
-
-const logger = winston.createLogger({
-    format: winston.format.combine(
-
-        // First argument to the combine method is defining how we want the timestamp to come up
-        winston.format.errors({ stack: true }),
-        winston.format.timestamp({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }),
-        // Second argument to the combine method, which defines what is exactly going to be printed in log
-        winston.format.printf((log) => `${log.timestamp} [${log.level.toUpperCase()}]: ${log.message}`)
+      //Timestamp format
+      winston.format.timestamp({
+        format: "YYYY-MM-DD HH:mm:ss",
+      }),
+      //Log level format
+      winston.format.printf(
+        (log) =>
+          `${log.timestamp} [${log.level.toUpperCase()}] ${log.requestId || ''}: ${log.message}`
+      )
     ),
+  })
+);
 
-    transports: allowedTransports
-})
+//MongoDb transport
+const mongoTransportOptions = {
+  level: "info",
+  db: LOG_DB_URL,
+  collection: "logs",
+  options: {useUnifiedTopology: true}
+};
 
-export default logger;
+allowedTransports.push(new winston.transports.MongoDB(mongoTransportOptions));
+
+//File transport
+allowedTransports.push(new winston.transports.File({
+  filename: "app.log"
+}))
+
+//Default logger
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    //Colorize with custom colors
+    // winston.format.colorize({
+    //   all: true,
+    //   colors: customColors,
+    // }),
+
+    //Timestamp format
+    winston.format.timestamp({
+      format: "YYYY-MM-DD HH:mm:ss",
+    }),
+    //Log level format
+    winston.format.printf(
+      (log) =>
+        `${log.timestamp} [${log.level.toUpperCase()}] ${log.requestId || ''}: ${log.message}`
+    )
+  ),
+
+
+  transports: allowedTransports,
+});
+
+module.exports = logger;

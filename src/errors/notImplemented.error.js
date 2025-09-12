@@ -1,9 +1,15 @@
-import BaseError from './Base.error.js';
-import StatusCodes from 'http-status-codes';
+const BaseError = require("./base.error");
+const { StatusCodes } = require("http-status-codes");
 
-export class notImplemented extends BaseError {
-    constructor(methodName) {
-        super("notImplemented", StatusCodes.NOT_IMPLEMENTED, `${methodName}Not Implemented`, {});
-    }
+class NotImplemented extends BaseError {
+  constructor(methodName) {
+    super(
+      "NotImplemented",
+      StatusCodes.NOT_IMPLEMENTED,
+      `${methodName} - Not Implemented`,
+      {}
+    );
+  }
 }
 
+module.exports = NotImplemented;

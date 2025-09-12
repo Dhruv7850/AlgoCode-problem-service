@@ -1,10 +1,9 @@
-import { Router } from 'express';
+const express = require('express');
 
-import v1Router from './v1/index.js';
+const v1Router = require('./v1');
 
-const apiRouter = Router();
 
-//if any request comes and route starts with /v1, we map it to apiRouter
+const apiRouter = express.Router();
 apiRouter.use('/v1', v1Router);
 
-export default apiRouter;
+module.exports = apiRouter;

@@ -1,9 +1,11 @@
-import BaseError from './Base.error.js';
-import StatusCodes from 'http-status-codes';
+const BaseError = require('./base.error');
+const { StatusCodes } = require('http-status-codes');
 
-export default class BadRequest extends BaseError {
+class BadRequest extends BaseError {
     constructor(propertyName, details) {
-        super("BadRequest", StatusCodes.BAD_REQUEST, `Invalid structure  for ${propertyName} provided`, details);
+        //which property name was not coming correctly
+        super("BadRequest", StatusCodes.BAD_REQUEST, `Invalid structure for ${propertyName} provided`, details);
     }
 }
 
+module.exports = BadRequest;
